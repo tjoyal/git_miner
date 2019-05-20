@@ -14,8 +14,8 @@ end
 engine = GitMiner::Engine::RubyEngine
 # engine = GitMiner::Engine::CExtensionEngine
 
-dispatch = GitMiner::Dispatch::SimpleDispatch
-# dispatch = GitMiner::Dispatch::ParallelDispatch
+# dispatch = GitMiner::Dispatch::SimpleDispatch
+dispatch = GitMiner::Dispatch::ParallelDispatch
 
 miner = GitMiner::Core.new(
   engine: engine,

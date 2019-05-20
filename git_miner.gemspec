@@ -33,6 +33,9 @@ Gem::Specification.new do |spec|
   spec.executables   = ["git-mine"]
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency "parallel", "~> 1.17"
+  spec.add_runtime_dependency "concurrent-ruby", "~> 1.1"
+
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
