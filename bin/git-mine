@@ -1,3 +1,28 @@
 #!/usr/bin/env ruby
 
-puts "..."
+STDOUT.sync = true
+
+require 'git_miner'
+
+prefix = ARGV.detect { |x| x.start_with?('prefix=') }&.gsub('prefix=', '')
+
+unless prefix
+  puts "usage: rake git:mine prefix=c0ffee"
+  exit 1
+end
+
+engine = GitMiner::Engine::RubyEngine
+# engine = GitMiner::Engine::CExtensionEngine
+
+dispatch = GitMiner::Dispatch::SimpleDispatch
+# dispatch = GitMiner::Dispatch::ParallelDispatch
+
+miner = GitMiner::Core.new(
+  engine: engine,
+  dispatch: dispatch,
+  prefix: prefix,
+)
+miner.validate
+miner.mine
+miner.report
+miner.alter
