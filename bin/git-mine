@@ -15,11 +15,11 @@ options = {
 OptionParser.new do |opts|
   opts.banner = "Usage: example.rb [options]"
 
-  opts.on("--engine [ruby|c]", [:ruby, :c], "Desired engine (default: ruby)") do |x|
+  opts.on("--engine [ruby|c]", [:ruby, :c], "Set the engine (default: ruby)") do |x|
     options[:engine] = x
   end
 
-  opts.on("--dispatch [simple|parallel]", [:simple, :parallel], "Desired dispatch (default: parallel)") do |x|
+  opts.on("--dispatch [simple|parallel]", [:simple, :parallel], "Set the dispatch (default: parallel)") do |x|
     options[:dispatch] = x
   end
 

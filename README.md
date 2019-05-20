@@ -1,19 +1,19 @@
 # GitMiner
 
-Pet project I build experimenting with different concepts.
+Pet project I built to experiment with different concepts.
 
-GitMiner allow for "mining" of vanity git prefixes.
+GitMiner allow for "mining" of vanity Git sha1 prefixes.
 
 This gem is a work in progress (core functionality is working).
 
 
 ## Installation
 
-Installation will add the `git-mine` binary.
-
 ```ruby
 gem 'git_miner'
 ```
+
+The installation will add the `git-mine` binary which act as a Git custom command: `git mine`.
 
 
 ## Usage
@@ -25,4 +25,11 @@ Eg.:
 git mine c0ffee
 ```
 
-Some extra options are available. `git-mine -h` will display the help section (default options are optimised for performance).
+Some extra options are available (experimental):
+```
+$ git-mine -h
+Usage: example.rb [options]
+        --engine [ruby|c]            Set the engine (default: ruby)
+        --dispatch [simple|parallel] Set the dispatch (default: parallel)
+    -h, --help                       Show this message
+```
