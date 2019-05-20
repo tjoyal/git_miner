@@ -4,18 +4,55 @@ STDOUT.sync = true
 
 require 'git_miner'
 
-prefix = ARGV.detect { |x| x.start_with?('prefix=') }&.gsub('prefix=', '')
 
-unless prefix
-  puts "usage: rake git:mine prefix=c0ffee"
+require 'optparse'
+
+options = {
+  engine: :ruby,
+  dispatch: :parallel,
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [options]"
+
+  opts.on("--engine [ruby|c]", [:ruby, :c], "Desired engine (default: ruby)") do |x|
+    options[:engine] = x
+  end
+
+  opts.on("--dispatch [simple|parallel]", [:simple, :parallel], "Desired dispatch (default: parallel)") do |x|
+    options[:dispatch] = x
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+unless ARGV.size == 1
+  puts opts
   exit 1
 end
 
-engine = GitMiner::Engine::RubyEngine
-# engine = GitMiner::Engine::CExtensionEngine
+prefix = ARGV.first
 
-# dispatch = GitMiner::Dispatch::SimpleDispatch
-dispatch = GitMiner::Dispatch::ParallelDispatch
+engine = case(options[:engine])
+when :ruby
+  GitMiner::Engine::RubyEngine
+when :c
+  GitMiner::Engine::CExtensionEngine
+else
+  raise ArgumentError, "unexpected engine"
+end
+
+dispatch = case(options[:dispatch])
+when :simple
+  GitMiner::Dispatch::SimpleDispatch
+when :parallel
+  GitMiner::Dispatch::ParallelDispatch
+else
+  raise ArgumentError, "unexpected engine"
+end
 
 miner = GitMiner::Core.new(
   engine: engine,
