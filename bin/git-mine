@@ -27,6 +27,11 @@ parser = OptionParser.new do |opts|
     options[:verbose] = v
   end
 
+  opts.on_tail("--version", "Returns the current version") do |v|
+    puts "GitMiner #{GitMiner::VERSION}"
+    exit
+  end
+
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
     exit
