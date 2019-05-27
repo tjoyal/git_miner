@@ -31,7 +31,7 @@ module GitMiner
       info = []
 
       percentage = count * 100 / @combinations.to_f
-      info << "#{'%5.2f' % percentage}%"
+      info << "#{'%.2f' % percentage}%"
 
       historic_count = @historic.last[:count] - @historic.first[:count]
       historic_delay = @historic.last[:timestamp] - @historic.first[:timestamp]
