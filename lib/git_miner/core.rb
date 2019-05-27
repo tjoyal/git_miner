@@ -42,7 +42,7 @@ module GitMiner
     end
 
     def mine
-      GitMiner.logger.info("Mining for sha")
+      GitMiner.logger.info("Mining for SHA: #{@prefix}")
 
       @mining_result = @dispatch.execute
     end
@@ -50,10 +50,11 @@ module GitMiner
     def report
       raise "Prerequisite: Require mining to be completed first" unless @mining_result
 
-      GitMiner.logger.info("Mining results:")
-      GitMiner.logger.info("- New sha: #{@mining_result.sha}")
-      GitMiner.logger.info("- Author offset: #{@mining_result.author_offset}")
-      GitMiner.logger.info("- Committer offset: #{@mining_result.committer_offset}")
+      GitMiner.logger.debug("Mining completed.")
+      GitMiner.logger.debug("Author offset: #{@mining_result.author_offset}")
+      GitMiner.logger.debug("Committer offset: #{@mining_result.committer_offset}")
+
+      GitMiner.logger.info("New SHA: #{@mining_result.sha}")
     end
 
     def alter
