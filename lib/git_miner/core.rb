@@ -1,7 +1,7 @@
 module GitMiner
   class Core
     def initialize(engine:, dispatch:, prefix:)
-      GitMiner.logger.info("Initializing with engine '#{engine}'. dispatch '#{dispatch}' and prefix '#{prefix}'")
+      GitMiner.logger.debug("Initializing with engine '#{engine}'. dispatch '#{dispatch}' and prefix '#{prefix}'")
 
       @prefix = prefix
 
@@ -38,7 +38,7 @@ module GitMiner
         raise "Invalid prefix, expected '^[0-9a-f]{1,32}$'"
       end
 
-      GitMiner.logger.info("Validations: Successful")
+      GitMiner.logger.debug("Validations: Successful")
     end
 
     def mine

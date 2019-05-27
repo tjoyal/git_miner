@@ -34,9 +34,9 @@ module GitMiner
       private
 
       def shell(cmd, environment: {}, stdin_data: nil)
-        GitMiner.logger.info("System call: #{cmd}")
-        GitMiner.logger.info("environment: #{environment.inspect}") unless environment.empty?
-        GitMiner.logger.info("stdin_data: #{stdin_data}") if stdin_data
+        GitMiner.logger.debug("System call: #{cmd}")
+        GitMiner.logger.debug("environment: #{environment.inspect}") unless environment.empty?
+        GitMiner.logger.debug("stdin_data: #{stdin_data}") if stdin_data
 
         output, status = Open3.capture2(environment, cmd, stdin_data: stdin_data) #, chdir: @working_directory
 
@@ -44,7 +44,7 @@ module GitMiner
           raise "Error on system call: #{output}, #{status}"
         end
 
-        GitMiner.logger.info("result: #{output.strip}")
+        GitMiner.logger.debug("result: #{output.strip}")
 
         output
       end
