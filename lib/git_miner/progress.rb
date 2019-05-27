@@ -43,7 +43,7 @@ module GitMiner
         info << "batches: #{per_sec.round(2)}/s"
       end
 
-      puts info.join(', ')
+      GitMiner.logger.info(info.join(', '))
     end
   end
 end

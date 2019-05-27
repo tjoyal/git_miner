@@ -1,7 +1,7 @@
 module GitMiner
   class Core
     def initialize(engine:, dispatch:, prefix:)
-      puts "Initializing with engine '#{engine}'. dispatch '#{dispatch}' and prefix '#{prefix}'"
+      GitMiner.logger.info("Initializing with engine '#{engine}'. dispatch '#{dispatch}' and prefix '#{prefix}'")
 
       @prefix = prefix
 
@@ -38,11 +38,11 @@ module GitMiner
         raise "Invalid prefix, expected '^[0-9a-f]{1,32}$'"
       end
 
-      puts "Validations: Successful"
+      GitMiner.logger.info("Validations: Successful")
     end
 
     def mine
-      puts "Mining for sha"
+      GitMiner.logger.info("Mining for sha")
 
       @mining_result = @dispatch.execute
     end
@@ -50,10 +50,10 @@ module GitMiner
     def report
       raise "Prerequisite: Require mining to be completed first" unless @mining_result
 
-      puts "Mining results:"
-      puts "- New sha: #{@mining_result.sha}"
-      puts "- Author offset: #{@mining_result.author_offset}"
-      puts "- Committer offset: #{@mining_result.committer_offset}"
+      GitMiner.logger.info("Mining results:")
+      GitMiner.logger.info("- New sha: #{@mining_result.sha}")
+      GitMiner.logger.info("- Author offset: #{@mining_result.author_offset}")
+      GitMiner.logger.info("- Committer offset: #{@mining_result.committer_offset}")
     end
 
     def alter
