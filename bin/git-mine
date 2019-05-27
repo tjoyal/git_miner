@@ -12,7 +12,7 @@ options = {
   dispatch: :parallel,
 }
 
-OptionParser.new do |opts|
+parser = OptionParser.new do |opts|
   opts.banner = "Usage: example.rb [options]"
 
   opts.on("--engine [ruby|c]", [:ruby, :c], "Set the engine (default: ruby)") do |x|
@@ -27,10 +27,12 @@ OptionParser.new do |opts|
     puts opts
     exit
   end
-end.parse!
+end
+
+parser.parse!
 
 unless ARGV.size == 1
-  puts opts
+  puts parser
   exit 1
 end
 
