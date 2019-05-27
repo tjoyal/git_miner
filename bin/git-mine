@@ -23,6 +23,10 @@ parser = OptionParser.new do |opts|
     options[:dispatch] = x
   end
 
+  opts.on("-v", "--[no-]verbose", "Run verbosely (default: false)") do |v|
+    options[:verbose] = v
+  end
+
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
     exit
@@ -35,6 +39,10 @@ unless ARGV.size == 1
   puts parser
   exit 1
 end
+
+GitMiner.logger.level = options[:verbose] ? Logger::DEBUG : Logger::INFO
+
+GitMiner.logger.debug("OptionParser: #{options.inspect}")
 
 prefix = ARGV.first
 
