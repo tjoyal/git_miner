@@ -31,16 +31,16 @@ module GitMiner
       info = []
 
       percentage = count * 100 / @combinations.to_f
-      info << "#{percentage.round(2)}%"
+      info << "#{'%5.2f' % percentage}%"
 
       historic_count = @historic.last[:count] - @historic.first[:count]
       historic_delay = @historic.last[:timestamp] - @historic.first[:timestamp]
       if historic_delay > 0
         per_sec = historic_count / historic_delay
-        info << "hash: #{per_sec.round(2)}/s"
+        info << "hash: #{'%.2f' % per_sec}/s"
 
         per_sec = (@historic.last[:batch] - @historic.first[:batch]) / historic_delay
-        info << "batches: #{per_sec.round(2)}/s"
+        info << "batches: #{'%.2f' % per_sec}/s"
       end
 
       GitMiner.logger.info(info.join(', '))
