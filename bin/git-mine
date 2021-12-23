@@ -4,7 +4,6 @@ STDOUT.sync = true
 
 require 'git_miner'
 
-
 require 'optparse'
 
 options = {

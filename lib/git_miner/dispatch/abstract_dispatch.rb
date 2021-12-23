@@ -1,6 +1,8 @@
 module GitMiner
   module Dispatch
     class AbstractDispatch
+      IDENTIFIER = "N/A"
+
       BATCH_SIZE = 50_000
 
       def initialize(prefix:, engine:)

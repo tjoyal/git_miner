@@ -3,6 +3,8 @@ require 'digest'
 module GitMiner
   module Engine
     class RubyEngine < AbstractEngine
+      IDENTIFIER = "Ruby"
+
       def sha1(str)
         Digest::SHA1.hexdigest(str)
       end

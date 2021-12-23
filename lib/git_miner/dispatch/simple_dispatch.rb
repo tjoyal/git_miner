@@ -1,6 +1,8 @@
 module GitMiner
   module Dispatch
     class SimpleDispatch < AbstractDispatch
+      IDENTIFIER = "Simple"
+
       def perform
         loop do
           result = @engine.mine(

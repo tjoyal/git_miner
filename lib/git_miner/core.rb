@@ -1,7 +1,10 @@
 module GitMiner
   class Core
     def initialize(engine:, dispatch:, prefix:)
-      GitMiner.logger.debug("Initializing with engine '#{engine}'. dispatch '#{dispatch}' and prefix '#{prefix}'")
+      GitMiner.logger.info("Initializing git miner.")
+      GitMiner.logger.info("Prefix: #{prefix}")
+      GitMiner.logger.debug("Engine: #{engine::IDENTIFIER}")
+      GitMiner.logger.debug("Dispatch: #{dispatch::IDENTIFIER}")
 
       @prefix = prefix
 

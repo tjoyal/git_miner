@@ -4,6 +4,8 @@ require 'concurrent'
 module GitMiner
   module Dispatch
     class ParallelDispatch < AbstractDispatch
+      IDENTIFIER = "Parallel"
+
       class ShaFound < StandardError
         attr_reader :result
 

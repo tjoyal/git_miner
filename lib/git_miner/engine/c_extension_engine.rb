@@ -7,6 +7,8 @@ module GitMiner
     class CExtensionEngine < AbstractEngine
       include GitMinerExt
 
+      IDENTIFIER = "CExtension"
+
       def sha1(str)
         c_sha1_hexdigest(str)
       end

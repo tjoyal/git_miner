@@ -1,6 +1,7 @@
 module GitMiner
   module Engine
     class AbstractEngine
+      IDENTIFIER = "N/A"
 
       def sha1(_str)
         raise NotImplementedError
