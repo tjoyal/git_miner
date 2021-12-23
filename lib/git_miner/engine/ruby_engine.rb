@@ -26,7 +26,7 @@ module GitMiner
           end
         end
 
-        return
+        nil
       end
 
       private
