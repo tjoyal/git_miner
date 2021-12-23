@@ -7,7 +7,7 @@ RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 
 Rake::ExtensionTask.new "git_miner_ext" do |ext|
-  ext.lib_dir = "lib/git_miner"
+  ext.lib_dir = "lib"
 end
 
-Rake::Task[:test].prerequisites << :compile
+Rake::Task[:spec].prerequisites << :compile

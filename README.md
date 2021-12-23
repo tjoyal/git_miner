@@ -2,15 +2,22 @@
 
 Pet project I built to experiment with different concepts.
 
-GitMiner allow for "mining" of vanity Git sha1 prefixes.
+GitMiner allow "mining" of vanity Git SHA1 prefixes.
 
 This gem is a work in progress (core functionality is working).
 
 
 ## Installation
 
+Rubygem:
 ```ruby
 gem 'git_miner'
+```
+
+Development:
+```
+gem build git_miner.gemspec
+gem install --local git_miner-*.gem 
 ```
 
 The installation will add the `git-mine` binary which act as a Git custom command: `git mine`.

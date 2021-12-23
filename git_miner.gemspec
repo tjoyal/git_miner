@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.executables   = ["git-mine"]
   spec.require_paths = ["lib"]
 
-  spec.extensions = %w[ext/git_miner_ext/extconf.rb]
+  spec.extensions = Dir["ext/**/extconf.rb"]
 
   spec.add_runtime_dependency "parallel", "~> 1.17"
   spec.add_runtime_dependency "concurrent-ruby", "~> 1.1"

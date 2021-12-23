@@ -1,4 +1,6 @@
-require 'git_miner_ext'
+require 'openssl'
+
+require File.join(__dir__, '..', '..', 'git_miner_ext')
 
 module GitMiner
   module Engine
