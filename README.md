@@ -4,7 +4,7 @@ Pet project I built to experiment with different concepts.
 
 GitMiner allow "mining" of vanity Git SHA1 prefixes.
 
-This gem is a work in progress (core functionality is working).
+The HEAD commit is altered via variations over committer and author timestamp adjustments. Other commit metadata such as commit message or description are left as their original.
 
 
 ## Installation
@@ -20,12 +20,12 @@ gem build git_miner.gemspec
 gem install --local git_miner-*.gem 
 ```
 
-The installation will add the `git-mine` binary which act as a Git custom command: `git mine`.
+These will add the `git-mine` binary which act as a Git custom command: `git mine`.
 
 
 ## Usage
 
-Though `git`, using `git mine [DESIRED_PREFIX]` will invoke the required logic.
+`git mine [DESIRED_PREFIX]` will amend the current HEAD commit with a new mined SHA.
 
 Eg.:
 ```
