@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git_miner (0.2.1)
+    git_miner (0.2.2)
       concurrent-ruby (~> 1.1)
       parallel (~> 1.17)
 
