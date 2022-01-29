@@ -14,19 +14,19 @@ options = {
 parser = OptionParser.new do |opts|
   opts.banner = "Usage: example.rb [options]"
 
-  opts.on("--engine [ruby|c]", [:ruby, :c], "Set the engine (default: ruby)") do |x|
-    options[:engine] = x
+  opts.on("--engine [ruby|c]", [:ruby, :c], "Set the engine (default: ruby)") do |engine|
+    options[:engine] = engine
   end
 
-  opts.on("--dispatch [simple|parallel]", [:simple, :parallel], "Set the dispatch (default: parallel)") do |x|
-    options[:dispatch] = x
+  opts.on("--dispatch [simple|parallel]", [:simple, :parallel], "Set the dispatch (default: parallel)") do |dispatch|
+    options[:dispatch] = dispatch
   end
 
-  opts.on("-v", "--[no-]verbose", "Run verbosely (default: false)") do |v|
-    options[:verbose] = v
+  opts.on("--verbose", "Run verbosely (default: false)") do |verbose|
+    options[:verbose] = verbose
   end
 
-  opts.on_tail("--version", "Returns the current version") do |v|
+  opts.on_tail("-v", "--version", "Returns the current version") do
     puts "GitMiner #{GitMiner::VERSION}"
     exit
   end

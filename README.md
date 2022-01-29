@@ -9,19 +9,20 @@ The HEAD commit is altered via variations over committer and author timestamp ad
 
 ## Installation
 
-Rubygem:
+These options will add the `git-mine` binary which act as a Git custom command: `git mine`.
+
+### Rubygem
+
 ```ruby
 gem 'git_miner'
 ```
 
-Development:
+### Manual
+
 ```
 gem build git_miner.gemspec
 gem install --local git_miner-*.gem 
 ```
-
-These will add the `git-mine` binary which act as a Git custom command: `git mine`.
-
 
 ## Usage
 
@@ -38,5 +39,14 @@ $ git-mine -h
 Usage: example.rb [options]
         --engine [ruby|c]            Set the engine (default: ruby)
         --dispatch [simple|parallel] Set the dispatch (default: parallel)
+        --verbose                    Run verbosely (default: false)
+    -v, --version                    Returns the current version
     -h, --help                       Show this message
+```
+
+
+### Development
+
+```
+[path]/git_miner/bin/git-mine ...
 ```
