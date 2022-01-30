@@ -28,22 +28,24 @@ module GitMiner
     end
 
     def report(count)
-      info = []
-
       percentage = count * 100 / @combinations.to_f
-      info << "#{'%.2f' % percentage}%"
+      info = []
 
       historic_count = @historic.last[:count] - @historic.first[:count]
       historic_delay = @historic.last[:timestamp] - @historic.first[:timestamp]
       if historic_delay > 0
         per_sec = historic_count / historic_delay
-        info << "hash: #{'%.2f' % per_sec}/s"
+        info << "hash: #{'%.0f' % per_sec}/s"
 
         per_sec = (@historic.last[:batch] - @historic.first[:batch]) / historic_delay
         info << "batches: #{'%.2f' % per_sec}/s"
       end
 
-      GitMiner.logger.info(info.join(', '))
+      if info.empty?
+        GitMiner.logger.info("Mining estimate #{'%.2f' % percentage}%")
+      else
+        GitMiner.logger.info("Mining estimate #{'%.2f' % percentage}% (#{info.join(', ')})")
+      end
     end
   end
 end

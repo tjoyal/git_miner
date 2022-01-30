@@ -1,10 +1,11 @@
 module GitMiner
   class Core
     def initialize(engine:, dispatch:, prefix:)
-      GitMiner.logger.info("Initializing git miner.")
-      GitMiner.logger.info("Prefix: #{prefix}")
-      GitMiner.logger.debug("Engine: #{engine::IDENTIFIER}")
-      GitMiner.logger.debug("Dispatch: #{dispatch::IDENTIFIER}")
+      GitMiner.logger.info("Initializing")
+
+      GitMiner.logger.debug("- Prefix: #{prefix}")
+      GitMiner.logger.debug("- Engine: #{engine::IDENTIFIER}")
+      GitMiner.logger.debug("- Dispatch: #{dispatch::IDENTIFIER}")
 
       @prefix = prefix
 
@@ -38,10 +39,10 @@ module GitMiner
       end
 
       unless @prefix[/^[0-9a-f]{1,32}$/]
-        raise "Invalid prefix, expected '^[0-9a-f]{1,32}$'"
+        raise(UserError, "Invalid prefix, expected '^[0-9a-f]{1,32}$'")
       end
 
-      GitMiner.logger.debug("Validations: Successful")
+      GitMiner.logger.debug("Prefix validation: Accepted")
     end
 
     def mine
@@ -56,8 +57,6 @@ module GitMiner
       GitMiner.logger.debug("Mining completed.")
       GitMiner.logger.debug("Author offset: #{@mining_result.author_offset}")
       GitMiner.logger.debug("Committer offset: #{@mining_result.committer_offset}")
-
-      GitMiner.logger.info("New SHA: #{@mining_result.sha}")
     end
 
     def alter
@@ -66,7 +65,10 @@ module GitMiner
       author_date = @now - @mining_result.author_offset
       committer_date = @now - @mining_result.committer_offset
 
+      GitMiner.logger.debug("Amending git")
       GitUtil.update_current_ref(author_date, committer_date)
+
+      GitMiner.logger.info("New SHA: #{@mining_result.sha}")
     end
   end
 end
