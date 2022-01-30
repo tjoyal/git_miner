@@ -2,7 +2,7 @@
 
 STDOUT.sync = true
 
-require 'git_miner'
+require File.join(__dir__, '..', 'lib', 'git_miner')
 
 require 'optparse'
 
@@ -12,7 +12,7 @@ options = {
 }
 
 parser = OptionParser.new do |opts|
-  opts.banner = "Usage: example.rb [options]"
+  opts.banner = "Usage: git mine [options]"
 
   opts.on("--engine [ruby|c]", [:ruby, :c], "Set the engine (default: ruby)") do |engine|
     options[:engine] = engine
@@ -24,6 +24,16 @@ parser = OptionParser.new do |opts|
 
   opts.on("--verbose", "Run verbosely (default: false)") do |verbose|
     options[:verbose] = verbose
+  end
+
+  opts.on("--register [prefix]", "Register automated post commit git hook") do |prefix|
+    if prefix.nil?
+      puts parser
+      exit 1
+    end
+
+    GitMiner::RegisterHook.register(prefix: prefix)
+    exit
   end
 
   opts.on_tail("-v", "--version", "Returns the current version") do
