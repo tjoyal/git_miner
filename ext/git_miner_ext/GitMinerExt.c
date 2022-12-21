@@ -1,14 +1,15 @@
 #include "ruby.h"
-#include "openssl/sha.h"
+
 #include <stdio.h>
 #include <stdbool.h>
+#include <openssl/sha.h>
 
 VALUE GitMinerExt = Qnil;
 
 void Init_git_miner_ext();
 
 VALUE rb_sha1_hexdigest(VALUE self, VALUE rbString);
-VALUE rb_sha1_mine(VALUE self, int authorOffset, int committerOffset, int qty);
+VALUE rb_sha1_mine(VALUE self, VALUE vAuthorOffset, VALUE vCommitterOffset, VALUE vQty);
 
 void Init_git_miner_ext() {
     GitMinerExt = rb_define_module("GitMinerExt");
@@ -18,9 +19,9 @@ void Init_git_miner_ext() {
 
 VALUE rb_sha1_hexdigest(VALUE self, VALUE rbString) {
     unsigned char result[SHA_DIGEST_LENGTH];
-    const char *string = StringValueCStr(rbString);
+    const char* string = StringValueCStr(rbString);
 
-    SHA1(string, strlen(string), result);
+    SHA1( (unsigned char*) string, strlen(string), result);
 
     unsigned char resultHex[SHA_DIGEST_LENGTH*2 + 1];
     int i = 0;
@@ -28,11 +29,15 @@ VALUE rb_sha1_hexdigest(VALUE self, VALUE rbString) {
         sprintf((char*)&(resultHex[i*2]), "%02x", result[i]);
     }
 
-    printf("ShaGenDebug: %s\n", resultHex);
-    return rb_str_new_cstr(resultHex);
+    printf("ShaGenDebug: %s\n",(char*) resultHex);
+    return rb_str_new_cstr((char*) resultHex);
 }
 
-VALUE rb_sha1_mine(VALUE self, int authorOffset, int committerOffset, int qty) {
+VALUE rb_sha1_mine(VALUE self, VALUE vAuthorOffset, VALUE vCommitterOffset, VALUE vQty) {
+    long authorOffset = FIX2LONG(vAuthorOffset);
+    long committerOffset = FIX2LONG(vCommitterOffset);
+    int qty = FIX2INT(vQty);
+
     VALUE rbPrefix = rb_iv_get(self, "@prefix");
     char* prefix = StringValueCStr(rbPrefix);
 
@@ -75,24 +80,25 @@ VALUE rb_sha1_mine(VALUE self, int authorOffset, int committerOffset, int qty) {
             gitHeadTree,
             gitHeadParent,
             gitHeadAuthorPrefix,
-            timestamp - authorOffset,
+            (int) (timestamp - authorOffset),
             gitHeadCommitterPrefix,
-            timestamp - committerOffset,
+            (int) (timestamp - committerOffset),
             gitHeadMessage
         );
 
-        sprintf(commitPrefix, "commit %d", strlen(currentHead));
+        sprintf(commitPrefix, "commit %d", (int) strlen(currentHead));
         sprintf(currentCommit, "%s_%s", commitPrefix, currentHead);
         currentCommit[strlen(commitPrefix)] = '\0';
 
-        shaLen = strlen(commitPrefix) + 1 + strlen(currentHead);
-        SHA1(currentCommit, shaLen, currentSha);
+        shaLen = (int) strlen(commitPrefix) + 1 + (int) strlen(currentHead);
+
+        SHA1( (unsigned char*) currentCommit, shaLen, currentSha);
 
         for (int j = 0; j < SHA_DIGEST_LENGTH; j++) {
             sprintf((char*)&(currentHex[j*2]), "%02x", currentSha[j]);
         }
 
-        int prefixLen = strlen(prefix);
+        int prefixLen = (int) strlen(prefix);
         bool match = true;
         for(int j = 0; j < prefixLen; j++) {
             match = match && (prefix[j] == currentHex[j]);
